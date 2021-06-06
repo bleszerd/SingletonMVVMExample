@@ -9,6 +9,7 @@ import bleszerd.com.github.mvvmsample.repository.MainRepository
 
 class MainViewModel : ViewModel() {
     private val userId: MutableLiveData<String> = MutableLiveData()
+
     val user: LiveData<User> = Transformations
         .switchMap(userId) {
             MainRepository.getUser(it)
