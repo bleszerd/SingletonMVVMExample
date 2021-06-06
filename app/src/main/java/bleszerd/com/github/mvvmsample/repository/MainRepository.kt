@@ -1,5 +1,7 @@
 package bleszerd.com.github.mvvmsample.repository
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import bleszerd.com.github.mvvmsample.api.RetrofitBuilder
 import bleszerd.com.github.mvvmsample.model.User
@@ -17,10 +19,17 @@ object MainRepository {
                 super.onActive()
                 job?.let { job ->
                     CoroutineScope(IO + job).launch {
-                        val user = RetrofitBuilder.apiService.getUser(userId)
+                        val userResponse = RetrofitBuilder.apiService.getUser(userId)
+                        val user = userResponse.body()
+
                         withContext(Main){
-                            value = user
-                            job.complete()
+                            if(userResponse.isSuccessful){
+                                value = user
+                                job.complete()
+                            } else {
+                                job.cancel()
+                                Log.d("Error", "Error")
+                            }
                         }
                     }
                 }

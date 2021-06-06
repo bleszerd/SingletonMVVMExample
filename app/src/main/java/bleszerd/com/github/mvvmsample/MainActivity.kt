@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import bleszerd.com.github.mvvmsample.databinding.ActivityMainBinding
 import bleszerd.com.github.mvvmsample.model.User
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             updateUiInfo(user)
         })
 
-        viewModel.setUserId("1")
+        viewModel.setUserId("2")
     }
 
     override fun onDestroy() {
